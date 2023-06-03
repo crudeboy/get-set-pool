@@ -14,6 +14,8 @@ const address=require("../user_contract").address2;
 //const address=require("../family_tree_details").address;
 //const byteCode=require("../family_tree_details").bytecode;
 const createIdentity=require("./create_identity");
+// does this mean you don't have to have an address to use the application
+// then how do you use fiat payments
 const Profiles = require('../models/Profiles');
 
 require("dotenv").config();
@@ -21,13 +23,14 @@ require("dotenv").config();
 module.exports=(app)=>{
 
     app.get("/signupr",(req,res)=>{
-        if(req.session.username!== undefined){
+        if(req.session.username!== undefined){ //storing the username in the session
             res.redirect("/homer");
         }
         else{
         res.render("signupr",{message:null});
         }
     });
+    // how to manipulate user data and add this to the sessions data or db
 
     app.post("/signupr",async (req,res)=>{
         const name=req.body.name;
@@ -57,7 +60,7 @@ module.exports=(app)=>{
  
         console.log("provider set");
  
-        const contract=new web.eth.Contract(abi,address);
+        const contract=new web.eth.Contract(abi,address); // setting the user details on the smart contract
         const response= await contract.methods.set(name,username,phno,vehicle,vehicleNo,userType,password,privateKey).send({
              from:"0x3c6b8c5a05FB705cE825D3C6336ebA0B60d381d7"   
         });

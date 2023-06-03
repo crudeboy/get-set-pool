@@ -2477,7 +2477,8 @@ var Application = function() {
 		for(var i=0;i<numOfStylesheets;i++) {
 			var styleSheet = styleSheets[i];
 			var cssRules = self.getStylesheetRules(styleSheet);
-			var numOfCSSRules = cssRules.length;
+			console.log(cssRules, "cssRules");
+			var numOfCSSRules = cssRules?.length ?? 0;
 			var cssRule;
 			
 			for (var j=0;j<numOfCSSRules;j++) {
